@@ -3,19 +3,19 @@ import time
 
 
 class Die:
-    value = None
+    _value = None
 
     def __init__(self, sides):
-        self.sides = sides
+        self._sides = sides
 
     def get_sides(self):
-        return self.sides
+        return self._sides
 
     def get_value(self):
-        return self.value
+        return self._value
 
     def roll(self):
-        self.value = random.randrange(1, self.sides + 1)
+        self._value = random.randrange(1, self._sides + 1)
 
 
 print("Witaj w grze Oczko")
