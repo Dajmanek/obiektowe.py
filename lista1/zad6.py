@@ -36,7 +36,6 @@ class RocketEngine:
         print(f"Suma mocy silników: {RocketEngine.all_power}")
 
 
-
 print("Ruszam...")
 start_engines = [RocketEngine("start1", 50), RocketEngine("start2", 50)]
 for engine in start_engines:
@@ -46,7 +45,7 @@ time.sleep(0.5)
 RocketEngine.status()
 
 time.sleep(1)
-print("Rozpędzam...")
+print("\nRozpędzam...")
 acceleration_engines = [RocketEngine("acceleration1", 500), RocketEngine("acceleration2", 500)]
 for engine in acceleration_engines:
     engine.start()
@@ -55,7 +54,7 @@ time.sleep(0.5)
 RocketEngine.status()
 
 time.sleep(1)
-print("Włączam hipernapęd...")
+print("\nWłączam hipernapęd...")
 hiper_engines = [RocketEngine("hiper1", 400000), RocketEngine("hiper2", 400000)]
 for engine in hiper_engines:
     engine.start()
@@ -64,7 +63,7 @@ time.sleep(0.5)
 RocketEngine.status()
 
 time.sleep(1.5)
-print("Wyłaczam hipernapęd...")
+print("\nWyłaczam hipernapęd...")
 for engine in hiper_engines:
     engine.stop()
     engine.__del__()
@@ -73,7 +72,7 @@ time.sleep(0.5)
 RocketEngine.status()
 
 time.sleep(1)
-print("Zwalniam...")
+print("\nZwalniam...")
 for engine in acceleration_engines:
     engine.stop()
     engine.__del__()
@@ -82,7 +81,7 @@ time.sleep(0.5)
 RocketEngine.status()
 
 time.sleep(1)
-print("Zatrzymuje się...")
+print("\nZatrzymuje się...")
 for engine in start_engines:
     engine.stop()
     engine.__del__()
