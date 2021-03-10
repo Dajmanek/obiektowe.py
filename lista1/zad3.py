@@ -3,10 +3,10 @@ import time
 
 
 class Die:
-    _value = None
 
     def __init__(self, sides):
         self._sides = sides
+        self._value = None
 
     def get_sides(self):
         return self._sides
