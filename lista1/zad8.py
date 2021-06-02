@@ -37,22 +37,19 @@ class Pet:
         return self.get_mood()
 
     def eat(self, food=4):
-        self.hunger -= food
         self._passage_of_time()
+        self.hunger -= food
 
     def play(self, fun=4):
-        self.tiredness -= fun
         self._passage_of_time()
+        self.tiredness -= fun
 
     def _passage_of_time(self):
         self.hunger += 1
         self.tiredness += 1
 
     def __str__(self):
-        print(f"Imię: {self.name}")
-        print(f"Głód: {self.hunger}")
-        print(f"Poziom znudzenia: {self.tiredness}")
-        print(f"Nastrój: {self.get_mood()}")
+        return f"Imię: {self.name}\nGłód: {self.hunger}\nPoziom znudzenia: {self.tiredness}\nNastrój: {self.get_mood()}"
 
 
 def help():
@@ -68,7 +65,7 @@ def help():
 
 def main():
     pet = Pet("Puszek")
-    pet.__str__()
+    print(pet.__str__())
     help()
     while True:
         input_text = input().lower()
@@ -96,7 +93,7 @@ def main():
             if not isinstance(input_text, int):
                 print("Błąd: wartość musi być liczbą całkowitą")
                 continue
-            pet.eat(input_text)
+            pet.play(input_text)
             print(f"Zabawa zakończona, aktualny poziom znudzenia zwierzaka: {pet.tiredness}")
             continue
 
@@ -113,10 +110,10 @@ def main():
             continue
 
         if input_text == "info":
-            pet.__str__()
+            print(pet.__str__())
             continue
 
-        print("Nie odnaleziono komendy podanej nazwie.")
+        print("Nie odnaleziono komendy o podanej nazwie.")
 
 
 main()

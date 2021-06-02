@@ -41,6 +41,7 @@ class Person:
             return
         if 0 > value > 130:
             print("Wiek musi byc wiekszy od 0 i mniejszy od 130")
+            self._age = 5
             return
         self._age = value
 
@@ -51,7 +52,7 @@ class Person:
 class Student(Person):
 
     def __init__(self, name, surname, age, field_of_study):
-        Person.__init__(self, name, surname, age)
+        super().__init__(name, surname, age)
         self.field_of_study = field_of_study
         self.student_book = {}
 
@@ -64,10 +65,11 @@ class Student(Person):
 
 class Employe(Person):
 
-    def __init__(self, name, surname, age, job_title, skills):
-        Person.__init__(self, name, surname, age)
+    def __init__(self, name, surname, age, job_title):
+        #super(Employe, self).__init__(name, surname, age)
+        super().__init__(name, surname, age)
         self.job_title = job_title
-        self.skills = skills
+        self.skills = []
 
     def add_skill(self, skill):
         self.skills.append(skill)
@@ -77,19 +79,27 @@ class Employe(Person):
 
 
 def main():
-    print("Zarejestruj sie jako:\n- student\n- pracownik")
-    input_text = input().lower()
+    while True:
+        print("Dostepne opcje: [student, pracownik]")
+        print("Zarejestruj sie jako: ", end='')
+        input_text = input().lower()
+        if input_text == "pracownik" or input_text == "student":
+            break
+        continue
 
+    #dane podstawowe
     print("Podaj imie: ", end='')
     imie = input()
     print("Podaj nazwisko: ", end='')
     nazwisko = input()
     print("Podaj wiek: ", end='')
     wiek = int(input())
+
+    #pracownik
     if input_text == "pracownik":
         print("Podaj stanowisko: ", end='')
         stanowisko = input()
-        pracownik = Employe(imie, nazwisko, wiek, stanowisko, [])
+        pracownik = Employe(imie, nazwisko, wiek, stanowisko)
         print("Podaj umiejetnosci (aby zakonczyc wpisz koniec)")
         while True:
             umiejetnosc = input()
@@ -99,25 +109,29 @@ def main():
         print("\n\nPodsumowanie\n")
         print(pracownik.__str__())
         print(f"Stanowisko: {pracownik.job_title}")
-        print(f"Umiejetnosci: {pracownik.get_skills()}")
+        print(f"Umiejetnosci:")
+        print("\n".join("- {}".format(s) for s in pracownik.get_skills()))
+        return
 
-    if input_text == "student":
-        print("Podaj kierunek: ", end='')
-        kierunek = input()
-        student = Student(imie, nazwisko, wiek, kierunek)
-        print("Podaj oceny w formacie \"przedmiot:ocena\", wpisz koniec aby zakonczyc")
-        while True:
-            input_text = input()
-            if input_text.lower() == "koniec":
-                break
-            splited = input_text.split(":")
-            if not splited[1].isdigit():
-                print("Blad: ocena musi byc liczba calkowita")
-                continue
-            student.put_grade(splited[0], int(splited[1]))
-        print("\n\nPodsumowanie\n")
-        print(student.__str__())
-        print(f"Kierunek: {student.field_of_study}")
-        print(f"Oceny: {student.student_book}")
+    # student
+    print("Podaj kierunek: ", end='')
+    kierunek = input()
+    student = Student(imie, nazwisko, wiek, kierunek)
+    print("Podaj oceny w formacie \"przedmiot:ocena\", wpisz koniec aby zakonczyc")
+    while True:
+        input_text = input()
+        if input_text.lower() == "koniec":
+            break
+        splited = input_text.split(":")
+        if not splited[1].isdigit():
+            print("Blad: ocena musi byc liczba calkowita")
+            continue
+        student.put_grade(splited[0], int(splited[1]))
+    print("\n\nPodsumowanie\n")
+    print(student.__str__())
+    print(f"Kierunek: {student.field_of_study}")
+    print(f"Oceny:")
+    print("\n".join("- {}: {}".format(k, v) for k, v in student.student_book.items()))
+
 
 main()
